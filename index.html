@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;1,600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>BookCinema</title>
+</head>
+<body>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+            outline:none;
+            border:none;
+            font-family: "Poppins",sans-serif;
+            
+        }
+        img{
+            width:33px;
+            margin-right: 15px;
+        }
+        .main .header{
+            display:flex;
+            text-align: center;
+            margin-top:10px;
+            margin-left:140px;
+            margin-bottom: 20px;
+        }
+        .header .bar-button{
+            background-color: transparent;
+            border: none;
+            border-style: none;
+            margin-right: 15px;
+        }
+        .first-section, .second-section{
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+        }
+        .header-search-bar{
+            padding:7px;
+            padding-left: 30px;
+            justify-content: space-between;
+            border: 1px solid rgb(238,238,238);
+            background-color: transparent;
+            border-radius: 10px;
+            width:500px;
+            margin-right: 320px;
+        }
+        .input-icon{
+            position: absolute;
+            left: 9px;
+            top: calc(50% - 0.5em); /* Keep icon in center of input, regardless of the input height */
+        }
+        .input-wrapper{
+            position: relative;
+        }
+        .second-section select{
+            border: 1px solid rgb(238,238,238);
+            padding:2px 5px 2px 5px;
+            border-radius: 8px;
+            margin-right:15px;
+            
+        }
+        .sign-up  {
+            padding:2px 10px 2px 10px;
+            background-color: #F84464;
+            border: 2px solid #F84464;
+            color:white;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right:10px;
+        }
+        .sign-in{
+            padding:2px 10px 2px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right:10px;
+            border: 2px solid #F84464;
+            background: transparent;
+            color: #F84464;
+
+        }
+        .account{
+            padding:2px 10px 2px 10px;
+            cursor: pointer;
+            border-radius: 15px;
+            display: none;
+            
+            background: transparent;
+            border:none;
+
+
+        }
+        .header-2{
+            display:flex;
+            gap: 25px;
+            background-color:#F5F5F5;
+        }
+        .header-2 button{
+            height:40px;
+            padding:3px 8px 3px 8px;
+            background-color: transparent;  
+            cursor: pointer;
+        }
+        .movies-button{
+            margin-left: 130px;;
+        }
+        .header-2-button{
+            margin-left:645px;
+            gap:25px;
+        }
+        .images{
+            width:100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            padding:30px;
+            background-color: #e9e4e4;
+
+        }
+        .images img{
+            width:90%;
+        }
+
+        /*popup*/
+        .login-form, .login-form-two{
+            width:100%;
+            height:100%;
+            position: absolute;
+            background-color: rgb(0,0,0,0.7);
+            top:0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .content, .content-two{
+            position: relative;
+            width:400px;
+            height:400px;
+            background-color: white;
+            border-radius: 10px ;
+            text-align: center;
+            padding:20px 30px;
+        }
+
+        .content input, .content-two input{
+            display: block;
+            width:75%;
+            margin: 25px auto;
+            padding: 10px 15px;
+            border: 1px solid rgb(238,238,238);
+        }
+
+        .content .close, .content-two .close-two{
+            position: absolute;
+            top:0;
+            right:10px;
+            transform: rotate(45deg);
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+
+        .sidebar{
+            position: absolute;
+            height:100vh;
+            background-color: #F5F5F5;
+            z-index:999;
+            width:175px;
+            top:0;
+            display: none;
+        }
+
+        .sidebar ul{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width:100%;
+            
+        }
+
+        .sidebar ul li{
+            display: block;
+            
+            cursor: pointer;
+            background-color:transparent;
+        }
+
+        .sidebar ul .cross{
+            position: absolute;
+            transform: rotate(45deg);
+            font-size:25px;
+            top:0;
+            right:5px;
+            cursor: pointer;
+        }
+
+        .sidebar ul li button{
+            border:none;
+            background-color: transparent;
+            border-radius:4px;
+            padding:8px 20px;
+            width: 100%;
+            font-weight: 1000;
+            cursor: pointer;
+            transition: 0.15s;
+            
+            
+        }
+        .sidebar ul li button:hover{
+            background-color: rgb(51, 212, 212);
+        }
+        .movies-section{
+            margin-left: 125px;;
+        }
+        .movies-section .group{
+            display: grid;
+        }
+        .movies-section  h3{
+            margin:16px 0px 8px 0px;
+        }
+        .sub-group{
+            display: grid;
+            grid-template-columns: repeat(10, calc(20% - 25.6px));
+            grid-template-rows: repeat(1, 1fr);
+        }
+        .movies-section .group .sub-group .title{
+            font-size: 125%;
+            margin-top: 5px;
+        }
+        .movies-section .group .sub-group .desc{
+            font-size: 300;
+            opacity: 0.7;
+        }
+        .movies-section .group button{
+            padding: 0px;
+            width:230px;
+            height:380px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            border-radius:10px;
+        }
+        .movies-section .group button img{
+            width:100%;
+            height:fit-content;
+            border-radius:10px
+        }
+        .hellob{
+            background-color: rgba(26,26,26,0.9);
+        }
+        .detailed{
+            display: flex;
+            padding: 20px 0 20px 0; 
+            
+
+        }
+        
+        .detailed .subone{
+            display:flex;
+            flex-direction: column;
+           
+        }
+        .detailed .subone img{
+            width:260px;
+            height:400px;
+            border-radius: 8px;
+            margin-left: 130px;
+
+        }
+        .detailed-title{
+            font-size: 40px;
+            font-weight: 800;
+            color: #F5F5F5;
+        }
+        .detailed-desc{
+            color:#F5F5F5;
+            opacity: 0.8;
+            padding: 2px 0px 0px 2px;
+            
+        }
+        .descr{
+            margin-left:130px;
+            margin-top: 20px;
+        }
+        .descr-data{
+            width:1000px;
+        }
+        .descr-data h4{
+            font-weight: 800;
+            margin-bottom:2px;
+            font-size: 20px;
+        }
+        .descr-data span{
+            font-size: 90%;
+            font-weight: 300;
+            color:rgb(0, 0, 0, 0.5)
+        } 
+        .bookbtn{
+            padding:15px 50px 15px 50px;
+            background-color: #F84464;
+            font-size:15px;
+            font-weight: 500;
+            color:white;
+            cursor: pointer;
+            border-radius: 7px;
+            margin-top: 20px;
+        }
+        .bookbtn:hover{
+            border: 2px solid #ffffff;
+            transition: 0.8s;
+        }
+     
+    </style>
+    <nav >
+        <div class="sidebar">
+            <ul>
+                
+                <div class="cross">
+                    +</div>
+                
+                <li style="margin-top:30px;"><button>
+                    
+                   
+                    <span>Home</span>
+                </button></li>
+
+                <li><button>
+                    
+                    <span>Services</span>
+                </button></li>
+                
+                <li><button>
+                    
+                    <span>About</span>
+                </button></li>
+
+                <li><button>
+                    
+                    <span>Settings</span>
+                </button></li>
+                <li><button class="logout-btn" style="display:none" onclick="logout()">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button></li>
+            </ul>
+        </div>
+
+    </nav>
+
+ 
+    <div class="main" id="all">
+        <div class="header">
+            <div class="first-section">
+                <button onclick="hamburger()" class="bar-button">
+                    <i class="fa-solid fa-bars fa-xl"></i>
+                </button>
+                <img src="static/logo.png">
+               
+                <div class="input-wrapper">
+                    <input type="text" style="position: relative;" class="header-search-bar" placeholder="Search for movies, plays, events,..etc" id="search-input" name="search-bar">
+                    <span style="color:rgb(113, 113, 113)" class="fa-solid fa-magnifying-glass fa-1x input-icon"></span>
+                </div>
+            </div>
+            <div class="second-section">
+                <select>
+                    <option value="">Choose Location</option>
+                    <option value="hyderabad">Hyderabad</option>
+                    <option value="benguluru">Benguluru</option>
+                    <option value="chennai">Chennai</option>
+                </select>
+                <button class="sign-up" id="sign-up" onclick="signup()">Signup</button>
+                <button class="sign-in" id="sign-in" onclick="signin()">Sign in</button>
+                <button class="account" onclick="account()"><i class="fa-solid fa-user fa-2x"></i></button>
+
+            </div>
+
+        </div>
+        <div class="header-2">
+            <button class="movies-button">Movies</button>
+            <button class="events-button">Events</button>
+            <button class="stream-button">Stream</button>
+            <button class="plays-button">Plays</button>
+            <button class="activities-button">Activites</button>
+            <div class="header-2-button">
+                <button class="offers-button">Offers</button>
+                <button class="gift-button">Gift Cards</button>
+            </div>
+        </div>
+        <div id="hellob" class="hellob">
+
+        </div>
+        <div class="descr" id="descr"></div>
+
+        <div class="images" id="hello">
+            <a name="atag">
+                <img style="border-radius:10px;" name="img">
+            </a>
+        </div>
+        <div class="movies-section" id="movies-sect">
+            <h3>Recommended Movies</h3>
+            <div class="group" id="group">
+                <div class="sub-group" id="sg"></div>
+            </div>
+        </div>
+
+        <div class="login-form" id="signup">
+            <div class="content">
+                <form action="">
+                    <div class="close">+</div>
+                    <h1>Signup</h1>
+                    <input type="text" required="required" placeholder="Username" id="uname">
+                    <input type="email" required="required" placeholder="Email" id="uemail">
+                    <input type="password" required="required" placeholder="Password" id="upsd">
+                    <input type="button" onclick="register()" value="Submit">
+                </form>
+            </div>
+        </div>
+
+        <div class="login-form-two" id="login">
+            <div class="content-two">
+                <form action="">
+                    <div class="close-two">+</div>
+                    <h1>Signin</h1>
+                    <input type="email" required="required" placeholder="Email" id="usremail">
+                    <input type="password" required="required" placeholder="Password" id="usrpsd">
+                    <input type="button" onclick="login()" value="Submit">
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</body>
+</html>
